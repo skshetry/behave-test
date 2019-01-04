@@ -2,18 +2,21 @@ language: python
 python:
   - "3.6"
 addons:
-  sauce_connect:
-    username: $SAUCE_USERNAME
-    access_key: $SAUCE_ACCESS_KEY
+  sauce_connect: true
+  hosts:
+    - local.test
 env:
   global:
     - SELENIUM_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@localhost:4445/wd/hub
 install:
   - pip install -r requirements.txt
 before_script:
-  - python -m http.server 8069 &
+  - python -m http.server 8069 > server.log 2>&1 &
   - sleep 3
   - netstat -lntu
+  - curl http://local.test:8069
 script:
   - behave --stage=ui
+after_failure:
+  - cat server.log
 cache: pip

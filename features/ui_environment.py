@@ -14,7 +14,7 @@ def browser(context):
     }
     if driver == "remote":
         selenium_url = os.environ.get("SELENIUM_URL") or user_data.get("selenium_url", "http://localhost:4444/wd/hub")
-        kwargs.update({"url": selenium_url, "driver_name": "remote", "browser": "chrome"})
+        kwargs.update({"url": selenium_url, "driver_name": "remote", "browser": "chrome", "tunnel-identifier": os.environ["TRAVIS_JOB_NUMBER"]})
 
     print(kwargs)
     context.browser = Browser(**kwargs)
