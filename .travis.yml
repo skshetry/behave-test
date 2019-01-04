@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.6"
+addons:
+  sauce_connect:
+    username: $SAUCE_USERNAME
+    access_key: $SAUCE_ACCESS_KEY
+env:
+  global:
+    - SELENIUM_URL=http://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@localhost:4445/wd/hub
+install:
+  - pip install -r requirements.txt
+before_script:
+  - python -m http.server 8069 &
+  - sleep 3
+  - netstat -lntu
+script:
+  - behave --stage=ui
+cache: pip

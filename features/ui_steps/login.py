@@ -1,35 +1,28 @@
 from behave import *
 
 
-@given("the admin has been created")
-def step_admin_has_been_created(context):
-    """
-    :type context: behave.runner.Context
-    """
-    pass
-
-
-@when("the admin browses to the login page")
+@when("the admin browses to the search page")
 def step_admin_browses_to_login_page(context):
     """
     :type context: behave.runner.Context
     """
-    context.pages.get("login").open()
+    context.pages.get("search").open()
 
 
-@step('the admin logs in with username "{username}" and email "{password}"')
-def step_admin_logs_in(context, username, password):
+@step('the user searches for "{text}"')
+def step_admin_logs_in(context, text):
     """
     :type context: behave.runner.Context
-    :type username: str
-    :type password: str
+    :type text: str
     """
-    context.pages.get("login").login(username, password)
+    context.search_term = text
+    context.pages.get("search").search(text)
 
 
-@then("the user should be redirected to the Inbox Page")
-def step_user_redirected_to_inbox_page(context):
+@step('the user should be redirected to homepage')
+def step_admin_logs_in(context):
     """
     :type context: behave.runner.Context
+    :type text: str
     """
-    assert context.browser.title == "#Inbox - Zero"
+    assert True

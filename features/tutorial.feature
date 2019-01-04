@@ -4,8 +4,7 @@ Feature: Login
 
   @wip
   @fixture.browser
-  Scenario: User logs in with correct password
-    Given the admin has been created
-    When the admin browses to the login page
-    And the admin logs in with username "jpt@jpt.co" and email "admin"
-    Then the user should be redirected to the Inbox Page
+  Scenario: User searches cats
+    When the admin browses to the search page
+    And the user searches for "cats"
+    Then the user should be redirected to homepage
